@@ -40,6 +40,10 @@ public class SearchAlgorithm {
 
 		return v;
 	}
+	
+	public Collection<Vertex> getVertexes() {
+		return vertexes.values();
+	}
 
 	public void createFromEdge(int src, int dst) {
 		Vertex srcV = getVertex(src);
@@ -87,6 +91,7 @@ public class SearchAlgorithm {
 		if (v.getDistance() <= newDistance)
 			return;
 
+		v.visit();
 		v.setDistance(newDistance);
 		v.setNearestHospital(hospital);
 

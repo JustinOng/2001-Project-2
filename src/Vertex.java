@@ -8,12 +8,22 @@ public class Vertex {
 	private Vertex nearestHospital; 
 	private int distance = Integer.MAX_VALUE;
 	
+	private int visits = 0; 
+	
 	public Vertex(int id) {
 		this.id = id;
 	}
 	
 	public int getId() {
 		return id;
+	}
+	
+	public void visit() {
+		visits++;
+	}
+	
+	public int getVisits() {
+		return visits;
 	}
 	
 	public void addNeighbor(Vertex v) {
