@@ -14,9 +14,10 @@ public class Project2 {
 		FileReader fr = new FileReader(new File(path));
 		BufferedReader br = new BufferedReader(fr);
 
-		Graph graph = new MultiGraph(path);
-		graph.setStrict(false);
-		graph.setAutoCreate(true);
+//		Graph graph = new MultiGraph(path);
+//		graph.setStrict(false);
+//		graph.setAutoCreate(true);
+		SearchAlgorithm search = new SearchAlgorithm();
 
 		String line;
 		while ((line = br.readLine()) != null) {
@@ -24,7 +25,15 @@ public class Project2 {
 				continue;
 			
 			String[] data = line.split("	");
-			graph.addEdge(data[0] + data[1], data[0], data[1]);
+//			graph.addEdge(data[0] + data[1], data[0], data[1]);
+			search.createFromEdge(Integer.parseInt(data[0]), Integer.parseInt(data[1]));
 		}
+		System.out.println(Runtime.getRuntime().totalMemory());
+		
+		search.assignHospitalsRandomly();
+		
+		long start = System.currentTimeMillis();
+		search.search();
+		System.out.println((System.currentTimeMillis() - start) / 1000.0);
 	}
 }
