@@ -50,7 +50,6 @@ public class SearchAlgorithm {
 		Vertex dstV = getVertex(dst);
 
 		srcV.addNeighbor(dstV);
-		dstV.addNeighbor(srcV);
 	}
 	
 	public void assignHospitalsRandomly() {
