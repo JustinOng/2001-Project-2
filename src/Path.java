@@ -1,5 +1,6 @@
 public class Path {
 	private Vertex vertex = null;
+	private Vertex base = null;
 	private Path next = null;
 	private int length = 1;
 	
@@ -20,15 +21,21 @@ public class Path {
 	
 	public void setNext(Path next) {		
 		if (this.next == null) {
+			this.base = this.vertex;
 			return;
 		}
 		
 		this.next = next;
+		this.base = this.next.base;
 		this.length += next.length;
 	}
 	
 	public Vertex getVertex() {
 		return vertex;
+	}
+	
+	public Vertex getBase() {
+		return base;
 	}
 	
 	public Path getNext() {

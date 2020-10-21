@@ -5,12 +5,15 @@ public class Vertex {
 	private List<Vertex> neighbors = new ArrayList<Vertex>();
 	private boolean isHospital = false;
 	
-	private Path path;
+	private Path[] paths;
+	private int numPaths = 0;
 	
 	private int visits = 0; 
 	
-	public Vertex(int id) {
+	public Vertex(int id, int maxPaths) {
 		this.id = id;
+		this.paths = new Path[maxPaths];
+		this.numPaths = 0;
 	}
 	
 	public int getId() {
@@ -33,12 +36,17 @@ public class Vertex {
 		return neighbors;
 	}
 	
-	public Path getPath() {
-		return path;
+	public boolean foundAllPaths() {
+		return numPaths >= paths.length;
 	}
 	
-	public void setPath(Path path) {
-		this.path = path;
+	public boolean addPath(Path path) {
+		for (int i = 0; i < numPaths; i++) {
+			if (paths[i].getBase() == path.getBase()) return false;
+		}
+		
+		this.paths[numPaths++] = path;
+		return true;
 	}
 	
 	public void setIsHospital(boolean isHospital) {
@@ -50,15 +58,20 @@ public class Vertex {
 	}
 	
 	public String toString() {		
-		StringJoiner sj = new StringJoiner("-", String.format("Vertex id=%d ", id), "");
+		StringJoiner full_sj = new StringJoiner(", ", String.format("Vertex id=%d ", id), "");
 		
-		Path p = path;
-		
-		while(p != null) {
-			sj.add(Integer.toString(p.getVertex().id));
-			p = p.getNext();
+		for (Path a : paths) {
+			Path p = a;
+			StringJoiner sj = new StringJoiner("-", "[", "]");
+			
+			while(p != null) {
+				sj.add(Integer.toString(p.getVertex().id));
+				p = p.getNext();
+			}
+			
+			full_sj.add(sj.toString());
 		}
 		
-		return sj.toString();
+		return full_sj.toString();
 	}
 }

@@ -21,12 +21,17 @@ final class WorkUnit {
 public class SearchAlgorithm {
 	private Map<Integer, Vertex> vertexes = new HashMap<Integer, Vertex>();
 	private ArrayDeque<WorkUnit> workQueue = new ArrayDeque<WorkUnit>();
+	private int numPaths = 0;
+	
+	public SearchAlgorithm(int numPaths) {
+		this.numPaths = numPaths;
+	}
 
 	public Vertex getVertex(int id) {
 		Vertex v;
 
 		if (!vertexes.containsKey(id)) {
-			v = new Vertex(id);
+			v = new Vertex(id, numPaths);
 			vertexes.put(id, v);
 		} else {
 			v = vertexes.get(id);
@@ -79,15 +84,17 @@ public class SearchAlgorithm {
 	private void tick(WorkUnit work) {
 		Vertex v = work.getVertex();
 		
-		if (v.getPath() != null) return;
+		if (v.foundAllPaths()) return;
 		
 		Path path = Path.extend(v, work.getPath());
+		
+		if (path.getLength() > 1 && path.getBase() == v) return;
 
 		v.visit();
-		v.setPath(path);
+		if (!v.addPath(path)) return;
 
 		for (Vertex connected : v.getNeighbors()) {
-			if (connected.getPath() != null)
+			if (connected.foundAllPaths())
 				continue;
 
 			workQueue.add(new WorkUnit(connected, path));
