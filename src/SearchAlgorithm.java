@@ -2,25 +2,19 @@ import java.util.*;
 
 final class WorkUnit {
 	private Vertex v;
-	private int newDistance;
-	private Vertex hospital;
+	private Path path;
 
-	public WorkUnit(Vertex v, int newDistance, Vertex hospital) {
+	public WorkUnit(Vertex v, Path path) {
 		this.v = v;
-		this.newDistance = newDistance;
-		this.hospital = hospital;
+		this.path = path;
 	}
 
 	public Vertex getVertex() {
 		return v;
 	}
 
-	public int getNewDistance() {
-		return newDistance;
-	}
-
-	public Vertex getHospital() {
-		return hospital;
+	public Path getPath() {
+		return path;
 	}
 }
 
@@ -72,7 +66,7 @@ public class SearchAlgorithm {
 			if (!v.isHospital())
 				continue;
 			
-			workQueue.add(new WorkUnit(v, 0, v));
+			workQueue.add(new WorkUnit(v, null));
 		}
 		
 		System.out.println(String.format("Starting search with %d hospitals", workQueue.size()));
@@ -84,22 +78,19 @@ public class SearchAlgorithm {
 
 	private void tick(WorkUnit work) {
 		Vertex v = work.getVertex();
-		int newDistance = work.getNewDistance();
-		Vertex hospital = work.getHospital();
-
-		if (v.getDistance() <= newDistance)
-			return;
+		
+		if (v.getPath() != null) return;
+		
+		Path path = Path.extend(v, work.getPath());
 
 		v.visit();
-		v.setDistance(newDistance);
-		v.setNearestHospital(hospital);
+		v.setPath(path);
 
-		newDistance++;
 		for (Vertex connected : v.getNeighbors()) {
-			if (connected.isHospital() || newDistance > connected.getDistance())
+			if (connected.getPath() != null)
 				continue;
 
-			workQueue.add(new WorkUnit(connected, newDistance, hospital));
+			workQueue.add(new WorkUnit(connected, path));
 		}
 	}
 }

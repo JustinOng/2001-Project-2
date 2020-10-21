@@ -51,6 +51,7 @@ public class Project2 {
 		Map<Integer, Integer> counts = new HashMap<>();
 		for (Vertex v : search.getVertexes()) {
 			counts.merge(v.getVisits(), 1, Integer::sum);
+			System.out.println(v);
 		}
 		
 		for (Map.Entry<Integer, Integer> entry : counts.entrySet()) {

@@ -5,8 +5,7 @@ public class Vertex {
 	private List<Vertex> neighbors = new ArrayList<Vertex>();
 	private boolean isHospital = false;
 	
-	private Vertex nearestHospital; 
-	private int distance = Integer.MAX_VALUE;
+	private Path path;
 	
 	private int visits = 0; 
 	
@@ -34,20 +33,12 @@ public class Vertex {
 		return neighbors;
 	}
 	
-	public int getDistance() {
-		return distance;
+	public Path getPath() {
+		return path;
 	}
 	
-	public void setDistance(int distance) {
-		this.distance = distance;
-	}
-	
-	public Vertex getNearestHospital() {
-		return nearestHospital;
-	}
-	
-	public void setNearestHospital(Vertex v) {
-		nearestHospital = v;
+	public void setPath(Path path) {
+		this.path = path;
 	}
 	
 	public void setIsHospital(boolean isHospital) {
@@ -56,5 +47,18 @@ public class Vertex {
 	
 	public boolean isHospital() {
 		return isHospital;
+	}
+	
+	public String toString() {		
+		StringJoiner sj = new StringJoiner("-", String.format("Vertex id=%d ", id), "");
+		
+		Path p = path;
+		
+		while(p != null) {
+			sj.add(Integer.toString(p.getVertex().id));
+			p = p.getNext();
+		}
+		
+		return sj.toString();
 	}
 }
