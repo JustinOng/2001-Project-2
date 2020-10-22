@@ -28,7 +28,7 @@ public class Project2 {
 
 		br.close();
 		fr.close();
-		System.out.println(Runtime.getRuntime().totalMemory());
+		System.out.printf("Memory Usage: %.2fGB\n", Runtime.getRuntime().totalMemory() / Math.pow(2, 30));
 
 		fr = new FileReader(new File(hospitalPath));
 		br = new BufferedReader(fr);
@@ -45,8 +45,7 @@ public class Project2 {
 
 		long start = System.currentTimeMillis();
 		search.search();
-		System.out.println((System.currentTimeMillis() - start) / 1000.0);
-
+		System.out.printf("Took %.3fs to search\n", (System.currentTimeMillis() - start) / 1000.0);
 		
 		if (args.length >= 4) {
 			String outPath = args[3];
@@ -65,8 +64,12 @@ public class Project2 {
 			counts.merge(v.getVisits(), 1, Integer::sum);
 		}
 
+		int total = 0;
 		for (Map.Entry<Integer, Integer> entry : counts.entrySet()) {
 			System.out.printf("%d visits: %d\n", entry.getKey(), entry.getValue());
+			total += entry.getKey() * entry.getValue();
 		}
+		
+		System.out.printf("Total visits: %d", total);
 	}
 }
