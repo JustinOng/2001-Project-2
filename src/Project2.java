@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Project2 {
 	public static void main(String[] args) throws Exception {
-		if (args.length != 3) {
+		if (args.length < 3) {
 			System.out.println("Usage: app <path to edges> <path to hospitals> <num of nearest paths>");
 			return;
 		}
@@ -47,10 +47,22 @@ public class Project2 {
 		search.search();
 		System.out.println((System.currentTimeMillis() - start) / 1000.0);
 
+		
+		if (args.length >= 4) {
+			String outPath = args[3];
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outPath));
+			
+			for (Vertex v : search.getVertexes()) {
+			    writer.write(v.toString());
+			    writer.write('\n');
+			}
+			
+		    writer.close();
+		}
+		
 		Map<Integer, Integer> counts = new HashMap<>();
 		for (Vertex v : search.getVertexes()) {
 			counts.merge(v.getVisits(), 1, Integer::sum);
-			System.out.println(v);
 		}
 
 		for (Map.Entry<Integer, Integer> entry : counts.entrySet()) {
