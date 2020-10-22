@@ -62,8 +62,13 @@ public class SearchAlgorithm {
 		}
 	}
 
-	public void setHospital(int id) {
-		vertexes.get(id).setIsHospital(true);
+	public void setHospital(int id) throws Exception {
+		Vertex v = vertexes.get(id);
+		if (v == null) {
+			throw new Exception(String.format("Cannot set %d as hospital: does not exist!", id));
+		}
+		
+		v.setIsHospital(true);
 	}
 
 	public void search() {
