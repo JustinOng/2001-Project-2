@@ -92,16 +92,11 @@ public class SearchAlgorithm {
 		if (v.foundAllPaths()) return;
 		
 		Path path = Path.extend(v, work.getPath());
-		
-		if (path.getLength() > 1 && path.getBase() == v) return;
 
 		v.visit();
 		if (!v.addPath(path)) return;
 
 		for (Vertex connected : v.getNeighbors()) {
-			if (connected.foundAllPaths())
-				continue;
-
 			workQueue.add(new WorkUnit(connected, path));
 		}
 	}
