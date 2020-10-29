@@ -93,7 +93,6 @@ public class SearchAlgorithm {
 		
 		Path path = Path.extend(v, work.getPath());
 
-		v.visit();
 		if (!v.addPath(path)) return;
 
 		for (Vertex connected : v.getNeighbors()) {

@@ -8,8 +8,6 @@ public class Vertex {
 	private Path[] paths;
 	private int numPaths = 0;
 	
-	private int visits = 0; 
-	
 	public Vertex(int id, int maxPaths) {
 		this.id = id;
 		this.paths = new Path[maxPaths];
@@ -18,14 +16,6 @@ public class Vertex {
 	
 	public int getId() {
 		return id;
-	}
-	
-	public void visit() {
-		visits++;
-	}
-	
-	public int getVisits() {
-		return visits;
 	}
 	
 	public void addNeighbor(Vertex v) {

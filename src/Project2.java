@@ -43,9 +43,9 @@ public class Project2 {
 		br.close();
 		fr.close();
 
-		long start = System.currentTimeMillis();
+		long start = System.nanoTime();
 		search.search();
-		System.out.printf("Took %.3fs to search\n", (System.currentTimeMillis() - start) / 1000.0);
+		System.out.printf("Took %dns to search\n", (System.nanoTime() - start));
 		
 		if (args.length >= 4) {
 			String outPath = args[3];
@@ -58,18 +58,5 @@ public class Project2 {
 			
 		    writer.close();
 		}
-		
-		Map<Integer, Integer> counts = new HashMap<>();
-		for (Vertex v : search.getVertexes()) {
-			counts.merge(v.getVisits(), 1, Integer::sum);
-		}
-
-		int total = 0;
-		for (Map.Entry<Integer, Integer> entry : counts.entrySet()) {
-			System.out.printf("%d visits: %d\n", entry.getKey(), entry.getValue());
-			total += entry.getKey() * entry.getValue();
-		}
-		
-		System.out.printf("Total visits: %d", total);
 	}
 }
