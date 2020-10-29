@@ -7,6 +7,13 @@ public class Project2 {
 			System.out.println("Usage: app <path to edges> <path to hospitals> <num of nearest paths>");
 			return;
 		}
+		
+		int iterationCount = 1;
+		for (String s : args) {
+			if (s.startsWith("-i")) {
+				iterationCount = Integer.parseInt(s.substring(2));
+			}
+		}
 
 		String edgePath = args[0];
 		String hospitalPath = args[1];
@@ -43,9 +50,25 @@ public class Project2 {
 		br.close();
 		fr.close();
 
-		long start = System.nanoTime();
-		search.search();
-		System.out.printf("Took %dns to search\n", (System.nanoTime() - start));
+		long totalExecTime = 0;
+		int executionCount = 0;
+		
+		long start, execTime;
+		
+		for (int i = 0; i < iterationCount; i++) {
+			start = System.nanoTime();
+			search.search();
+			execTime = System.nanoTime() - start;
+			totalExecTime += execTime;
+			executionCount++;
+			
+			// attempt to perform some cleanup
+			search.reset();
+			System.gc();
+			System.runFinalization();
+		}
+		
+		System.out.printf("Took %dns on average to exec %d iterations\n", totalExecTime / executionCount, executionCount);
 		
 		if (args.length >= 4) {
 			String outPath = args[3];

@@ -70,6 +70,12 @@ public class SearchAlgorithm {
 		
 		v.setIsHospital(true);
 	}
+	
+	public void reset() {
+		for (Vertex v : vertexes.values()) {
+			v.reset();
+		}
+	}
 
 	public void search() {
 		for (Vertex v : vertexes.values()) {
@@ -82,21 +88,19 @@ public class SearchAlgorithm {
 		System.out.println(String.format("Starting search with %d hospitals", workQueue.size()));
 		
 		while (!workQueue.isEmpty()) {
-			tick(workQueue.removeFirst());
-		}
-	}
+			WorkUnit work = workQueue.removeFirst();
+			
+			Vertex v = work.getVertex();
+			
+			if (v.foundAllPaths()) continue;
+			
+			Path path = Path.extend(v, work.getPath());
 
-	private void tick(WorkUnit work) {
-		Vertex v = work.getVertex();
-		
-		if (v.foundAllPaths()) return;
-		
-		Path path = Path.extend(v, work.getPath());
+			if (!v.addPath(path)) continue;
 
-		if (!v.addPath(path)) return;
-
-		for (Vertex connected : v.getNeighbors()) {
-			workQueue.add(new WorkUnit(connected, path));
+			for (Vertex connected : v.getNeighbors()) {
+				workQueue.add(new WorkUnit(connected, path));
+			}
 		}
 	}
 }

@@ -18,6 +18,10 @@ public class Vertex {
 		return id;
 	}
 	
+	public void reset() {
+		this.numPaths = 0;
+	}
+	
 	public void addNeighbor(Vertex v) {
 		neighbors.add(v);
 	}
