@@ -71,15 +71,23 @@ public class Project2 {
 		System.out.printf("Took %dns on average to exec %d iterations\n", totalExecTime / executionCount, executionCount);
 		
 		if (args.length >= 4) {
-			String outPath = args[3];
-			BufferedWriter writer = new BufferedWriter(new FileWriter(outPath));
-			
-			for (Vertex v : search.getVertexes()) {
-			    writer.write(v.toString());
-			    writer.write('\n');
+			String outPath = null;
+			for (int i = 3; i < args.length; i++) {
+				if (args[i].startsWith("-i")) continue;
+				
+				outPath = args[3];
 			}
 			
-		    writer.close();
+			if (outPath != null) {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(outPath));
+				
+				for (Vertex v : search.getVertexes()) {
+				    writer.write(v.toString());
+				    writer.write('\n');
+				}
+				
+			    writer.close();
+			}
 		}
 	}
 }
