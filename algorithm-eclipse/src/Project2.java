@@ -13,6 +13,7 @@ public class Project2 {
 		
 		int iterationCount = 1;
 		String outPath = null;
+		boolean includePath = false;
 		
 		for (int i = 3; i < args.length; i++) {
 			String s = args[i];
@@ -31,6 +32,9 @@ public class Project2 {
 				}
 				
 				outPath = args[i+1];
+				i++;
+			} else if (s.equals("--include-path")) {
+				includePath = true;
 			}
 		}
 
@@ -91,7 +95,7 @@ public class Project2 {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(outPath));
 			
 			for (Vertex v : search.getVertexes()) {
-			    writer.write(v.toString());
+			    writer.write(v.toString(includePath));
 			    writer.write('\n');
 			}
 			
