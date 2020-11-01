@@ -59,7 +59,8 @@ public class Vertex {
 	public String toString(boolean includePath) {
 		StringJoiner full_sj = new StringJoiner(", ", String.format("Vertex id=%d ", id), "");
 
-		for (Path a : paths) {
+		for (int i = 0; i < numPaths; i++) {
+			Path a = paths[i];
 			if (includePath) {
 				Path p = a;
 				StringJoiner sj = new StringJoiner("-", "[", "]");
