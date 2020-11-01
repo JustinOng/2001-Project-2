@@ -5,7 +5,7 @@ We implemented Multi Source Breadth-First search to find the top-`k` nearest hos
 
 - `2001.jar`:
   - Exported `.jar` of the search algorithm
-  - `java -jar 2001.jar edges.txt hospitals.txt k [--out outfile.txt] [--include-paths]`
+  - `java -jar 2001.jar edges.txt hospitals.txt k [--out outfile.txt] [--include-path]`
     - `edges.txt`: input file containing edges in the format
       ```
       0 1
