@@ -24,6 +24,11 @@
         transform: translate(0, -30px);
       }
 
+      g.node text.paths {
+        stroke: black;
+        transform: translate(0, 30px);
+      }
+
       #overlay {
         margin: 20px;
         position: absolute;
@@ -60,9 +65,12 @@
       </div>
       <div id="label"></div>
     </div>
-    <div id="explanation">*Number in circle indicates distance to nearest hospital</div>
-    <script src="viz_data.js"></script>
-    <script src="viz_algo.js"></script>
+    <div id="explanation">
+      *Number in circle indicates how many paths the node has<br/>
+      *Text below node: id of hospital (distance)
+    </div>
+    <script src="viz_data_extended.js"></script>
+    <script src="viz_algo_extended.js"></script>
     <script>
       // base d3 code from https://observablehq.com/@d3/force-directed-graph?collection=@d3/d3-force
       const svg = d3.select("svg");
@@ -70,7 +78,7 @@
 
       const simulation = d3.forceSimulation(nodes)
         .force("link", d3.forceLink(links).id((d) => d.id).distance(20))
-        .force("charge", d3.forceManyBody().strength(-2000))
+        .force("charge", d3.forceManyBody().strength(-3000))
         .force("center", d3.forceCenter(svg_bb.width / 2, svg_bb.height / 2));
 
       const link = svg.append("g")
@@ -107,6 +115,12 @@
         .style("text-anchor", "middle")
         .style("dominant-baseline", "central")
         .text((d) => d.id);
+
+      node
+      .append("text")
+        .attr("class", "paths")
+        .style("text-anchor", "middle")
+        .style("dominant-baseline", "central")
       
       svg
       .append("circle")
@@ -115,7 +129,7 @@
         .attr("stroke-width", "2")
         .attr("stroke-dasharray", "5 5")
         .attr("fill", "none")
-        .attr("r", 50)
+        .attr("r", 60)
         .attr("cx", -50)
         .attr("cy", -50)
 
@@ -132,7 +146,8 @@
       });
 
       function updateNodeContent() {
-        svg.selectAll("g.node text.content").text((d) => (d.path === false ? "" : d.path.length - 1 ));
+        svg.selectAll("g.node text.content").text((d) => d.path.length);
+        svg.selectAll("g.node text.paths").text((d) => d.path.map((path) => `${path[path.length - 1]} (${path.length - 1})`).join(", "));
       }
 
       function highlightNode(nodeId) {
