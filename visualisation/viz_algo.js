@@ -3,6 +3,8 @@ let workQueue = [];
 let highlightId = -1;
 const eleLabel = document.querySelector("#overlay #label");
 
+let step = 0;
+
 function init() {
   for (const node of nodes) {
     if (!node["hospital"]) continue;
@@ -16,6 +18,8 @@ function init() {
 
 function doWork() {
   const work = workQueue.shift();
+
+  step++;
   if (!work) {
     eleLabel.innerText = "Done";
     return;
@@ -45,16 +49,24 @@ function doWork() {
       continue;
     }
 
-    eleLabel.innerHTML += `<div class="importance-high">Adding neighbor ${neighborId} to work queue</div>`;
+    eleLabel.innerHTML += `<div class="importance-high new-work">Adding neighbor ${neighborId} to work queue</div>`;
 
-    workQueue.push([neighborId, [...node.path]]);
+    workQueue.push([neighborId, [...node.path], step]);
   }
 }
 
 function updateQueueDisplay() {
-  document.querySelector("#overlay #workQueue").innerText =
+  document.querySelector("#overlay #workQueue").innerHTML =
     "[" +
-    workQueue.map((work) => `(${work[0]}, [${work[1]}])`).join(", ") +
+    workQueue
+      .map((work) => {
+        if (work[2] != step) {
+          return `(${work[0]}, [${work[1]}])`;
+        } else {
+          return `<span class="new-work">(${work[0]}, [${work[1]}])</span>`;
+        }
+      })
+      .join(", ") +
     "]";
 }
 
