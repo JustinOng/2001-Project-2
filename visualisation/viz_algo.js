@@ -1,7 +1,7 @@
 const history = [];
 let workQueue = [];
 let highlightId = -1;
-const eleLabel = document.querySelector("#overlay #label");
+const eleLabel = document.querySelector("#display #label");
 
 let step = 0;
 
@@ -27,7 +27,7 @@ function doWork() {
   }
 
   const node = nodes.filter((node) => node.id === work[0])[0];
-  eleLabel.innerHTML = `Working on Node ${node.id}, new path [${work[1]}]<br/>`;
+  eleLabel.innerHTML = `Working on Node ${node.id}, new proposed path [${work[1]}]<br/>`;
 
   highlightNode(node.id);
   highlightId = node.id;
@@ -51,7 +51,7 @@ function doWork() {
 }
 
 function updateQueueDisplay() {
-  document.querySelector("#overlay #workQueue").innerHTML =
+  document.querySelector("#display #workQueue").innerHTML =
     "[" +
     workQueue
       .map((work) => {

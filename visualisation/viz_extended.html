@@ -29,12 +29,8 @@
         transform: translate(0, 30px);
       }
 
-      #overlay {
+      #display {
         margin: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 999;
         font-size: 2em;
       }
 
@@ -57,13 +53,15 @@
     </style>
   </head>
   <body>
-    <svg width="100%" height="100%"></svg>
-    <div id="overlay">
-      <div>
-        Work Queue:
-        <span id="workQueue"></span>
+    <div style="display: flex; flex-direction: row; width: 100%; height: 100%;">
+      <div id="display" style="width: 50%;">
+        <div>
+          Work Queue:
+          <span id="workQueue"></span>
+        </div>
+        <div id="label"></div>
       </div>
-      <div id="label"></div>
+      <svg style="width: 50%;"></svg>
     </div>
     <div id="explanation">
       *Number in circle indicates how many paths the node has<br/>
