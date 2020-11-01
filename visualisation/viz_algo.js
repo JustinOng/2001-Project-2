@@ -44,12 +44,6 @@ function doWork() {
   } has new shortest path: [${node.path.reverse()}]</div>`;
 
   for (const neighborId of node.neighbors) {
-    const neighbor = nodes.filter((node) => node.id === neighborId)[0];
-    if (neighbor.path && neighbor.path.length > 0) {
-      eleLabel.innerHTML += `<div class="importance-low">Not adding neighbor ${neighborId}: already has path</div>`;
-      continue;
-    }
-
     eleLabel.innerHTML += `<div class="importance-high new-work">Adding neighbor ${neighborId} to work queue</div>`;
 
     workQueue.push([neighborId, [...node.path], step]);
