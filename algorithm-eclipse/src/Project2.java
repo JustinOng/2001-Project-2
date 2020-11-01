@@ -75,16 +75,16 @@ public class Project2 {
 		long start, execTime;
 		
 		for (int i = 0; i < iterationCount; i++) {
+			// attempt to perform some cleanup
+			search.reset();
+			System.gc();
+			System.runFinalization();
+			
 			start = System.nanoTime();
 			search.search();
 			execTime = System.nanoTime() - start;
 			totalExecTime += execTime;
 			executionCount++;
-			
-			// attempt to perform some cleanup
-			search.reset();
-			System.gc();
-			System.runFinalization();
 		}
 		
 		System.out.printf("Took %dns on average to exec %d iterations\n", totalExecTime / executionCount, executionCount);
