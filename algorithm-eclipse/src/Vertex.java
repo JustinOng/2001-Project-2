@@ -69,9 +69,9 @@ public class Vertex {
 					p = p.getNext();
 				}
 	
-				full_sj.add(String.format("%d %s", a.getLength() - 1, sj.toString()));
+				full_sj.add(String.format("%d(%d) %s", a.getBase().getId(), a.getLength() - 1, sj.toString()));
 			} else {
-				full_sj.add(Integer.toString(a.getLength() - 1));
+				full_sj.add(String.format("%d(%d)", a.getBase().getId(), a.getLength() - 1));
 			}
 		}
 
