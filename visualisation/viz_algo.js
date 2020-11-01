@@ -22,6 +22,7 @@ function doWork() {
   step++;
   if (!work) {
     eleLabel.innerText = "Done";
+    highlightNode();
     return;
   }
 
