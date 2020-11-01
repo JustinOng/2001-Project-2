@@ -21,6 +21,18 @@ We implemented Multi Source Breadth-First search to find the top-`k` nearest hos
     - `k`: number of nearest hospitals to compute paths to
     - `--out outfile.txt`: name of file to write output data to. defaults to writing just distance to hospitals
     - `--include-paths`: specify this to write full path data to `outfile.txt`
+  - output file example (`--include-path`):
+    ```
+    Vertex id=2 11(1) [2-11], 13(3) [2-59-16-13], 40(4) [2-11-20-56-40]
+    ```
+    Top 3 nearest hospitals to Vertex id=2:
+    1. Distance 1 to `Vertex id=11`, through vertices `2-11`
+    2. Distance 3 to `Vertex id=13`, through vertices `2-59-16-13`
+    3. Distance 4 to `Vertex id=40`, through vertices `2-11-20-56-40`
+  - output file example (without `--include-path`):
+    ```
+    Vertex id=2 11(1), 13(3), 40(4)
+    ```
 - `algorithm-eclipse/`: Eclipse project for algorithm implementation
 - `empirical-study/`: Python scripts for empirical analysis
   - `exec_measure.py`:
