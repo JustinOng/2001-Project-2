@@ -33,6 +33,12 @@ We implemented Multi Source Breadth-First search to find the top-`k` nearest hos
     ```
     Vertex id=2 11(1), 13(3), 40(4)
     ```
+- `output/`:
+  - `roadNet/`:
+    - `*.zip` contains the output from running our algorithms on the respective input files, with `roadNet-AREA-hospitals.txt` each containing 256 hospitals randomly selected from the input files. The input files have not been added into the repository and can be downloaded from https://snap.stanford.edu/data/index.html#road.
+  - `testcase/`:
+    - Contains test case generated with the scripts in `graphgen/`.
+    - `algo_output.txt` and `algo_output_full.txt` is the output from running our algorithm on the test case.
 - `algorithm-eclipse/`: Eclipse project for algorithm implementation
 - `empirical-study/`: Python scripts for empirical analysis
   - `exec_measure.py`:
@@ -72,8 +78,4 @@ We implemented Multi Source Breadth-First search to find the top-`k` nearest hos
   - `viz.html`:
     - Interactive demonstration of the search algorithm implemented
 - `requirements.txt`:
-  - `pip` requirements for the Python scripts included in this repository. Note that the scripts were developed/executed on Python 3.8.
-
-
-
-****
+  - `pip` requirements for the Python scripts included in this repository. Note that the scripts were developed on Python 3.8.
